@@ -393,8 +393,8 @@ class PSDConverterGUI:
             if os.path.isfile(source_path):
                 if source_path.lower().endswith(".psd"):
                     self.log_message(f"\nProcessing: {source_path}")
-                    creation_date = get_file_creation_date_str(source_path)
-                    if convert_psd_to_image(source_path, output_dir, self.output_settings, creation_date):
+                    outname = os.path.basename(source_path).replace(".psd", "")
+                    if convert_psd_to_image(source_path, output_dir, self.output_settings, outname):
                         successful_conversions += 1
                     processed_files += 1
                     self.progress_var.set((processed_files / total_files) * 100)
@@ -404,8 +404,8 @@ class PSDConverterGUI:
                         if file.lower().endswith(".psd"):
                             full_path = os.path.join(root, file)
                             self.log_message(f"\nProcessing: {full_path}")
-                            creation_date = get_file_creation_date_str(full_path)
-                            if convert_psd_to_image(full_path, output_dir, self.output_settings, creation_date):
+                            outname = os.path.basename(full_path).replace(".psd", "")
+                            if convert_psd_to_image(full_path, output_dir, self.output_settings, os.path.basename(outname)):
                                 successful_conversions += 1
                             processed_files += 1
                             self.progress_var.set((processed_files / total_files) * 100)
@@ -420,4 +420,4 @@ def main():
     root.mainloop()
 
 if __name__ == "__main__":
-    main() 
+    main()
